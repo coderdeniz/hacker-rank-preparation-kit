@@ -10,6 +10,7 @@ namespace week_1
             // MiniMaxSum();
             //TimeConversion();
             //BreakingTheRecords();
+            //CamelCase();
         }
 
         static void PlusMinus()
@@ -116,27 +117,163 @@ namespace week_1
         }
         static void CamelCase()
         {
-            var text = Console.ReadLine();
-            var textArr = text.Split(";");
-            var convertedText = textArr[2];
-
-            if (textArr[0] == "S")
+            try
             {
-                if (textArr[1] == "M")
+                while (true)
                 {
-                    foreach (var item in convertedText)
-                    {
-                        if (char.IsUpper(item))
-                        {
+                    var text = Console.ReadLine();
+                    var textArr = text.Split(";");
+                    var convertedText = textArr[2];
 
+                    if (textArr[0] == "S")
+                    {
+                        string splitedText = string.Empty;
+
+                        if (textArr[1] == "M")
+                        {
+                            foreach (var item in convertedText)
+                            {
+                                if (item == '(')
+                                {
+                                    break;
+                                }
+                                if (char.IsUpper(item))
+                                {
+                                    splitedText = splitedText + " ";
+                                    splitedText = splitedText + char.ToLower(item).ToString();
+                                }
+                                else
+                                {
+                                    splitedText += item.ToString();
+                                }
+                            }
                         }
+                        if (textArr[1] == "C" || textArr[1] == "V")
+                        {
+                            for (int i = 0; i < convertedText.Length; i++)
+                            {
+                                if (char.IsUpper(convertedText[i]))
+                                {
+                                    if (i == 0)
+                                    {
+                                        splitedText += " ";
+                                    }
+                                    splitedText += char.ToLower(convertedText[i]).ToString();
+                                }
+                                else
+                                {
+                                    splitedText += convertedText[i].ToString();
+                                }
+                            }
+                        }
+                        Console.WriteLine(splitedText);
+                    }
+                    else if (textArr[0] == "C")
+                    {
+                        string splitedText = string.Empty;
+
+                        if (textArr[1] == "M")
+                        {
+                            for (int i = 0; i < convertedText.Length; i++)
+                            {
+                                if (convertedText[i] == ' ')
+                                {
+                                    splitedText = splitedText + "";
+                                    splitedText = splitedText + char.ToUpper(convertedText[i + 1]).ToString();
+                                    i = i + 1;
+                                }
+                                else
+                                {
+                                    splitedText += convertedText[i].ToString();
+                                }
+                                if (i == convertedText.Length - 1)
+                                {
+                                    splitedText += "()";
+                                }
+                            }
+                        }
+                        if (textArr[1] == "C")
+                        {
+                            for (int i = 0; i < convertedText.Length; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    splitedText += char.ToUpper(convertedText[i]).ToString();
+                                }
+                                else
+                                {
+                                    if (convertedText[i] == ' ')
+                                    {
+                                        splitedText = splitedText + "";
+                                        splitedText = splitedText + char.ToUpper(convertedText[i + 1]).ToString();
+                                        i = i + 1;
+                                    }
+                                    else
+                                    {
+                                        splitedText += convertedText[i].ToString();
+                                    }
+                                }
+                            }
+                        }
+                        if (textArr[1] == "V")
+                        {
+                            for (int i = 0; i < convertedText.Length; i++)
+                            {
+                                if (i == 0)
+                                {
+                                    splitedText += convertedText[i].ToString();
+                                }
+                                else
+                                {
+                                    if (convertedText[i] == ' ')
+                                    {
+                                        splitedText = splitedText + "";
+                                        splitedText = splitedText + char.ToUpper(convertedText[i + 1]).ToString();
+                                        i = i + 1;
+                                    }
+                                    else
+                                    {
+                                        splitedText += convertedText[i].ToString();
+                                    }
+                                }
+                            }
+                        }
+                        Console.WriteLine(splitedText);
                     }
                 }
             }
-            else if (textArr[0] == "C")
-            {
-
+            catch (Exception)
+            {               
             }
+        }        
+        static void DivisibleSumPairs()
+        {
+            TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+            string[] firstMultipleInput = Console.ReadLine().TrimEnd().Split(' ');
+
+            int n = Convert.ToInt32(firstMultipleInput[0]);
+
+            int k = Convert.ToInt32(firstMultipleInput[1]);
+
+            List<int> ar = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(arTemp => Convert.ToInt32(arTemp)).ToList();
+
+            int count = 0;
+            for (int i = 0; i < ar.Count(); i++)
+            {
+                for (int j = i + 1; j < ar.Count(); j++)
+                {
+                    if ((ar[i] + ar[j]) % k == 0)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            textWriter.WriteLine(count);
+
+            textWriter.Flush();
+            textWriter.Close();
         }
     }
 }
