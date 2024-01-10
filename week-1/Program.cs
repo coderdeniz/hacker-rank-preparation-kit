@@ -11,6 +11,7 @@ namespace week_1
             //TimeConversion();
             //BreakingTheRecords();
             //CamelCase();
+            MockTest();
         }
 
         static void PlusMinus()
@@ -274,6 +275,79 @@ namespace week_1
 
             textWriter.Flush();
             textWriter.Close();
+        }
+        static void SparseArrays()
+        {
+            TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+            int stringsCount = Convert.ToInt32(Console.ReadLine().Trim());
+
+            List<string> strings = new List<string>();
+
+            for (int i = 0; i < stringsCount; i++)
+            {
+                string stringsItem = Console.ReadLine();
+                strings.Add(stringsItem);
+            }
+
+            int queriesCount = Convert.ToInt32(Console.ReadLine().Trim());
+
+            List<string> queries = new List<string>();
+
+            for (int i = 0; i < queriesCount; i++)
+            {
+                string queriesItem = Console.ReadLine();
+                queries.Add(queriesItem);
+            }
+
+            List<int> res = new List<int>();
+
+            for (int i = 0; i < queries.Count(); i++)
+            {
+                int count = 0;
+                for (int j = 0; j < strings.Count(); j++)
+                {
+                    if (queries[i] == strings[j])
+                    {
+                        count++;
+                    }
+                }
+                res.Add(count);
+            }
+
+            textWriter.WriteLine(String.Join("\n", res));
+
+            textWriter.Flush();
+            textWriter.Close();
+        }
+        static void MockTest()
+        {
+            List<int> nums = new List<int> { 1, 5, -5, 3, 10, 4 };
+            bool swapRequired;
+
+            for (int i = 0; i < nums.Count() - 1; i++)
+            {
+                swapRequired = false;
+                for (int j = 0; j < nums.Count() - i - 1; j++)
+                {
+                    if (nums[j] > nums[j+1] )
+                    {
+                        int temp = nums[j];
+                        nums[j] = nums[j + 1];
+                        nums[j + 1] = temp;
+                        swapRequired = true;
+                    }
+                }
+                if (swapRequired == false)
+                {
+                    break;
+                }
+            }
+
+            foreach (var item in nums)
+            {
+                Console.Write(item + " ");
+            }
         }
     }
 }
